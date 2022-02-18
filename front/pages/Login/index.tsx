@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
+import { useQuery } from 'react-query';
 import { Header, Input, Form, Label, Button, LinkContainer, Error } from '@pages/SignUp/style';
 import { Link } from 'react-router-dom';
 import useInput from '@hooks/useInput';
+import fetcher from '@utils/fetcher';
 
 const Login = () => {
+  const { isLoading, error, data } = useQuery('user', () => fetcher({ url: 'http://localhost:4000/api/users' }));
   const [email, onChangeEmail] = useInput('');
   const [password, onChangePassword] = useInput('');
   const [loginError, setLoginError] = useState('');

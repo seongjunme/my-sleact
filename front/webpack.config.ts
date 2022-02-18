@@ -48,7 +48,7 @@ const config: Configuration = {
           ],
           env: {
             development: {
-              plugins: [require.resolve('react-refresh/babel')],
+              plugins: [require.resolve('react-refresh/babel'), require.resolve('@babel/plugin-transform-runtime')],
             },
           },
         },
