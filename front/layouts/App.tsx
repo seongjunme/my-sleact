@@ -6,18 +6,19 @@ import fetcher from '@utils/fetcher';
 
 const Login = loadable(() => import('@pages/Login'));
 const SignUp = loadable(() => import('@pages/SignUp'));
+const Channel = loadable(() => import('@pages/Channel'));
 
 const App = () => {
   const { isLoading, error, data } = useQuery('user', () => fetcher({ url: 'http://localhost:4000/api/users' }));
 
-  if (isLoading) return null;
+  if (isLoading) return <div>Loading...</div>;
   if (error) return null;
 
   if (data) {
     return (
       <Routes>
-        <Route path="/" element={<div>로그인 상태</div>} />
-        <Route path="*" element={<div>잘못된 접근</div>} />
+        <Route path="/workspace" element={<Channel />} />
+        <Route path="*" element={<Navigate to="/workspace" />} />
       </Routes>
     );
   } else {
