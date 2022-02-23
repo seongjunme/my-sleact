@@ -6,7 +6,7 @@ import fetcher from '@utils/fetcher';
 
 const Login = loadable(() => import('@pages/Login'));
 const SignUp = loadable(() => import('@pages/SignUp'));
-const Channel = loadable(() => import('@pages/Channel'));
+const Workspace = loadable(() => import('@layouts/Workspace'));
 
 const App = () => {
   const { isLoading, error, data } = useQuery('user', () => fetcher({ url: 'http://localhost:4000/api/users' }));
@@ -17,8 +17,8 @@ const App = () => {
   if (data) {
     return (
       <Routes>
-        <Route path="/workspace" element={<Channel />} />
-        <Route path="*" element={<Navigate to="/workspace" />} />
+        <Route path="/workspace/*" element={<Workspace />} />
+        <Route path="*" element={<Navigate to="/workspace/channel" />} />
       </Routes>
     );
   } else {

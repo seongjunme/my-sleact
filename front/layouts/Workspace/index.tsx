@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
 import axios from 'axios';
+import loadable from '@loadable/component';
 import { useQuery, useQueryClient } from 'react-query';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import fetcher from '@utils/fetcher';
 import {
   Header,
@@ -15,7 +17,10 @@ import {
 } from '@layouts/Workspace/style';
 import gravatar from 'gravatar';
 
-const Workspace: React.FC = ({ children }) => {
+const Channel = loadable(() => import('@pages/Channel'));
+const DM = loadable(() => import('@pages/DM'));
+
+const Workspace: React.FC = () => {
   const { isLoading, error, data } = useQuery('user', () => fetcher({ url: 'http://localhost:4000/api/users' }));
   const queryClient = useQueryClient();
 
@@ -43,9 +48,14 @@ const Workspace: React.FC = ({ children }) => {
           <WorkspaceName>Sleact</WorkspaceName>
           <MenuScroll>menu scroll</MenuScroll>
         </Channels>
-        <Chats>Chats</Chats>
+        <Chats>
+          <Routes>
+            <Route path="/channel" element={<Channel />} />
+            <Route path="/dm" element={<DM />} />
+            <Route path="/*" element={<Navigate to="/channel" />} />
+          </Routes>
+        </Chats>
       </WorkspaceWrapper>
-      {children}
     </>
   );
 };
