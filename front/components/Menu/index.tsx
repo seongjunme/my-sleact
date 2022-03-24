@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import { CloseModalButton, CreateMenu } from './style';
+import { CloseModalButton, Container, CreateMenu } from './style';
 
 interface Props {
   style: CSSProperties;
@@ -8,8 +8,9 @@ interface Props {
 
 const Menu: React.FC<Props> = ({ children, style, onCloseMenu }) => {
   return (
-    <CreateMenu onClick={onCloseMenu}>
-      <div
+    <>
+      <CreateMenu onClick={onCloseMenu} />
+      <Container
         style={style}
         onClick={(e) => {
           e.stopPropagation();
@@ -17,8 +18,8 @@ const Menu: React.FC<Props> = ({ children, style, onCloseMenu }) => {
       >
         <CloseModalButton onClick={onCloseMenu}>&times;</CloseModalButton>
         {children}
-      </div>
-    </CreateMenu>
+      </Container>
+    </>
   );
 };
 
